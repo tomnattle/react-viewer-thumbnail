@@ -641,6 +641,10 @@ export default (props: ViewerProps) => {
     activeImg = getActiveImage();
   }
 
+  if (props.beforeShow) {
+    activeImg = props.beforeShow(activeImg);
+  }
+  
   return (
     <div
       className={className}

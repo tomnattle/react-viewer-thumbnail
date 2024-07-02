@@ -98,6 +98,8 @@ interface ViewerProps {
   // callback when iamge change
   onChange?: (activeImage: ImageDecorator, index: number) => void;
 
+  beforeShow: (activeImage: ImageDecorator) =>  ImageDecorator | undefined;
+
   // disable mouse zoom
   disableMouseZoom?: boolean;
 
