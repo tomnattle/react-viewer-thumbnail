@@ -49,7 +49,7 @@ config.module
     .loader('ts-loader')
     .options({
       configFile: path.join(__dirname, 'tsconfig.json'),
-      // transpileOnly: true,
+      transpileOnly: true,
     });
 
 config.module

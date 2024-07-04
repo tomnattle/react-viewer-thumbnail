@@ -1,11 +1,18 @@
-# react-viewer
+# react-viewer-thumbnail
 
 [![NPM version][npm-image]][npm-url] [![](https://travis-ci.org/infeng/react-viewer.svg?branch=master)](https://travis-ci.org/infeng/react-viewer) [![codecov](https://codecov.io/gh/infeng/react-viewer/branch/master/graph/badge.svg)](https://codecov.io/gh/infeng/react-viewer)
-> react image viewer.
+> react image viewer. add thumbnail support.
 
 ## Introduction
 
+base on [react-viewer](https://github.com/infeng/react-viewer)
+
 Because I can`t be comfortable using [viewerjs](https://github.com/fengyuanchen/viewerjs) in react, so I created react-viewer to replace it.
+
+
+## Features
+defualt features from [viewerjs](https://github.com/fengyuanchen/viewerjs)
+beforeShow will be called before render. u you alter the image src. such as thumnail.
 
 ## Installation
 
@@ -23,6 +30,13 @@ import Viewer from 'react-viewer';
 
 function App() {
   const [ visible, setVisible ] = React.useState(false);
+  const [files, setFiles] = React.useState([])
+
+  React.useEffect(() => {
+    //.. load files fromn api
+  })
+
+  const images = (files || []).map((f: any) => ({ src: f.uriThumbnail, alt: f.uri }))
 
   return (
     <div>
@@ -31,6 +45,12 @@ function App() {
       visible={visible}
       onClose={() => { setVisible(false); } }
       images={[{src: '', alt: ''}]}
+      beforeShow= {(activeImage: ImageDecorator) =>  {
+        return {
+          ...activeImage,
+          src: activeImage.alt
+        }
+      }}
       />
     </div>
   );

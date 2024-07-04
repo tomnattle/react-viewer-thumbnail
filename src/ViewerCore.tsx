@@ -73,7 +73,7 @@ export default (props: ViewerProps) => {
     showTotal = true,
     totalName = 'of',
     minScale = 0.1,
-   } = props;
+  } = props;
 
   const initialState: ViewerCoreState = {
     visible: false,
@@ -149,7 +149,7 @@ export default (props: ViewerProps) => {
   const viewerCore = React.useRef<HTMLDivElement>(null);
   const init = React.useRef(false);
   const currentLoadIndex = React.useRef(0);
-  const [ state, dispatch ] = React.useReducer<(s: any, a: any) => ViewerCoreState>(reducer, initialState);
+  const [state, dispatch] = React.useReducer<(s: any, a: any) => ViewerCoreState>(reducer, initialState);
 
   React.useEffect(() => {
     init.current = true;
@@ -214,7 +214,7 @@ export default (props: ViewerProps) => {
     }));
     let activeImage: ImageDecorator = null;
     if (images.length > 0) {
-      activeImage = images[currentActiveIndex];
+      activeImage = props.beforeShow ? props.beforeShow(images[currentActiveIndex]) : images[currentActiveIndex];
     }
     let loadComplete = false;
     let img = new Image();
@@ -644,7 +644,7 @@ export default (props: ViewerProps) => {
   if (props.beforeShow) {
     activeImg = props.beforeShow(activeImg);
   }
-  
+
   return (
     <div
       className={className}
